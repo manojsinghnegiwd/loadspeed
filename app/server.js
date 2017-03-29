@@ -12,4 +12,8 @@ const handler = (req, res) => {
 const app = http.createServer(handler);
 const io = socketIo(app);
 
+io.on('connection', (socket) => {
+  console.log(socket.id);
+})
+
 app.listen(8080);
