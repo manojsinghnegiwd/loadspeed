@@ -1,0 +1,24 @@
+{
+  "name": "LoadSpeed",
+  "version": "1.0.0",
+  "description": "Test your website speed",
+  "main": "index.js",
+  "scripts": {
+    "dev-server": "./node_modules/.bin/nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manojsinghnegiwd/loadspeed.git"
+  },
+  "author": "Manoj Singh Negi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/manojsinghnegiwd/loadspeed/issues"
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "^6.22.0",
+    "babel-register": "^6.23.0",
+    "nodemon": "^1.11.0"
+  },
+  "homepage": "https://github.com/manojsinghnegiwd/loadspeed#readme"
+}
