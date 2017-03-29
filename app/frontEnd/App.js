@@ -17,6 +17,7 @@ export default class App extends Component {
   }
 
   updateList = (data) => {
+    console.log(data);
     this.setState((prevState) => ({
       urlsList: prevState.urlsList.concat([data])
     }))
@@ -33,7 +34,7 @@ export default class App extends Component {
   }
 
   render () {
-    const {url} = this.state;
+    const {url, urlsList} = this.state;
     return (
       <div>
         <input onChange={this.updateUrl} value={url} />
