@@ -2,6 +2,11 @@ import http from 'http';
 import socketIo from 'socket.io';
 import fs from 'fs';
 import request from 'request';
+import rethinkdbdash from 'rethinkdbdash';
+
+const r = rethinkdbdash({
+  db: 'load_speed'
+});
 
 // handle routes
 const handler = (req, res) => {
@@ -12,6 +17,22 @@ const handler = (req, res) => {
 
 const app = http.createServer(handler);
 const io = socketIo(app);
+
+r.table('urls').changes().run({
+    cursor: 'true'
+  },
+  (err, cursor) => {
+    if(cursor) {
+      cursor.each((err, rec) => {
+        if(rec) {
+          if(rec['new_val']) {
+            io.emit('new_website_tested', rec['new_val']);
+          }
+        }
+      })
+    }
+  }
+);
 
 const loadPage = (url) => {
   return new Promise((res, rej) => {
@@ -33,11 +54,16 @@ const loadPage = (url) => {
   })
 }
 
+const insertIntoDB = (data) => {
+  return r.table('urls').insert(data).run();
+}
+
 const sendLoadTime = (url, socketId) => {
   loadPage(url)
     .then(res => {
-      io.to(socketId).emit('end_page_load', res);
-      io.emit('new_website_tested', res);
+      insertIntoDB(res).then(success => {
+        io.to(socketId).emit('end_page_load', res);
+      })
     })
     .catch(err => io.to(socketId).emit('error_loading_page', err))
 }
