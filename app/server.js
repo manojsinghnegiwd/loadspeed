@@ -17,13 +17,14 @@ const loadPage = (url) => {
   return new Promise((res, rej) => {
     let time = Date.now();
     request(url, (err, response) => {
+
       time = Date.now() - time;
 
       if(err)
         return rej(err);
 
       return res({
-        'statusCode:', response && response.statusCode,
+        'statusCode': response && response.statusCode,
         'load_time': time
       })
 
@@ -31,8 +32,14 @@ const loadPage = (url) => {
   })
 }
 
+const sendLoadTime = (url, socketId) => {
+  loadPage(url)
+    .then(res => io.to(socketId).emit('end_page_load', res))
+    .catch(err => io.to(socketId).emit('error_loading_page', err))
+}
+
 io.on('connection', (socket) => {
-  console.log(socket.id);
+  socket.on('start_page_load', (data) => sendLoadTime(data.url, socket.id));
 })
 
 app.listen(8080);
