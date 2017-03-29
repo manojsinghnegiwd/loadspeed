@@ -7,16 +7,29 @@ export default class App extends Component {
     this.socket = client('http://localhost:8080');
     this.socket.on('connect', () => console.log('connected'));
     this.socket.on('end_page_load', (data) => console.log(data));
+
+    this.state = {
+      url: ''
+    }
+
   }
 
   loadPage = (url) => {
     this.socket.emit('start_page_load', {url});
   }
 
+  updateUrl = ({target}) => {
+    this.setState({
+      url: target.value
+    })
+  }
+
   render () {
+    const {url} = this.state;
     return (
       <div>
-        <button onClick={() => this.loadPage('http://www.google.com')}>Start Loading</button>
+        <input onChange={this.updateUrl} value={url} />
+        <button onClick={() => this.loadPage(url)}>Start Loading</button>
       </div>
     )
   }
