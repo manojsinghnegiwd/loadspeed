@@ -46,4 +46,4 @@ io.on('connection', (socket) => {
   socket.on('start_page_load', (data) => sendLoadTime(data.url, socket.id));
 })
 
-app.listen(8080);
+app.listen(7000);

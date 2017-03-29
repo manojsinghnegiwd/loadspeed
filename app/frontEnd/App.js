@@ -4,7 +4,7 @@ import client from 'socket.io-client';
 export default class App extends Component {
   constructor(props) {
     super(props);
-    this.socket = client('http://localhost:8080');
+    this.socket = client('http://localhost:7000');
     this.socket.on('connect', () => console.log('connected'));
     this.socket.on('end_page_load', (data) => console.log(data));
     this.socket.on('new_website_tested', (data) => this.updateList(data));
