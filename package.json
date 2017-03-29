@@ -27,6 +27,15 @@
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.16.2"
   },
+  "babel": {
+   "presets": [
+     "es2015",
+     "react"
+   ],
+   "plugins": [
+     "transform-object-rest-spread"
+   ]
+  },
   "homepage": "https://github.com/manojsinghnegiwd/loadspeed#readme",
   "dependencies": {
     "react": "^15.4.2",
