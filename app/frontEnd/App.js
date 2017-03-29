@@ -6,10 +6,19 @@ export default class App extends Component {
     super(props);
     this.socket = client('http://localhost:8080');
     this.socket.on('connect', () => console.log('connected'));
+    this.socket.on('end_page_load', (data) => console.log(data));
+  }
+
+  loadPage = (url) => {
+    this.socket.emit('start_page_load', {url});
   }
 
   render () {
-    return <div></div>
+    return (
+      <div>
+        <button onClick={() => this.loadPage('http://www.google.com')}>Start Loading</button>
+      </div>
+    )
   }
 
 }
