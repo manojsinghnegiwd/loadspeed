@@ -25,7 +25,8 @@ const loadPage = (url) => {
 
       return res({
         'statusCode': response && response.statusCode,
-        'load_time': time
+        'load_time': time,
+        'address': url
       })
 
     })
@@ -34,7 +35,10 @@ const loadPage = (url) => {
 
 const sendLoadTime = (url, socketId) => {
   loadPage(url)
-    .then(res => io.to(socketId).emit('end_page_load', res))
+    .then(res => {
+      io.to(socketId).emit('end_page_load', res);
+      io.emit('new_website_tested', res);
+    })
     .catch(err => io.to(socketId).emit('error_loading_page', err))
 }
 
