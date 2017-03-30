@@ -18,9 +18,18 @@ export default class App extends Component {
 
   }
 
+  componentWillMount () {
+    this.getUrls();
+  }
+
+  getUrls = () => {
+    getUrls()
+      .then(res => this.updateList(res.data.urls))
+  }
+
   updateList = (data) => {
     this.setState((prevState) => ({
-      urlsList: prevState.urlsList.concat([data])
+      urlsList: prevState.urlsList.concat(data)
     }))
   }
 
