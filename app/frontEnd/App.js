@@ -110,7 +110,7 @@ export default class App extends Component {
               </span> </Alert> : null}
 
               <hr />
-              <UrlList urls={urlsList} />
+              {urlsList && urlsList.length > 0 ? <UrlList urls={urlsList} /> : null}
             </Col>
             <Col sm="1/3"></Col>
           </Row>
