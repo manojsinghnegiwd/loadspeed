@@ -5,7 +5,9 @@ export default class UrlList extends Component {
     const urls = this.props;
     console.log(urls);
     return (
-      <div></div>
+      <div>
+        <h3>Recently tested webpages</h3>
+      </div>
     )
   }
 }
