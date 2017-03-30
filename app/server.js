@@ -37,7 +37,16 @@ r.table('urls').changes().run({
       cursor.each((err, rec) => {
         if(rec) {
           if(rec['new_val']) {
-            io.emit('new_website_tested', rec['new_val']);
+            r.table('urls')
+              .count()
+              .run()
+              .then(res => {
+                console.log(res);
+                io.emit('new_website_tested', {
+                  new_url: rec['new_val'],
+                  total_count: res
+                });
+              })
           }
         }
       })
