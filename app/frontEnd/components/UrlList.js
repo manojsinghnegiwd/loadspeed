@@ -7,7 +7,7 @@ export default class UrlList extends Component {
     return (
       <div>
         <Card>
-          <div className="lead">
+          <div className="lead" style={style.heading}>
             Recently Tested
           </div>
           <Table>
@@ -37,5 +37,11 @@ export default class UrlList extends Component {
         </Card>
       </div>
     )
+  }
+}
+
+const style = {
+  heading: {
+    marginTop: 0
   }
 }
