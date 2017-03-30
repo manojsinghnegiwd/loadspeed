@@ -15,6 +15,8 @@ export default class App extends Component {
     this.state = {
       url: '',
       urlsList: [],
+      err: '',
+      sucess: '',
       calculating: false
     }
 
@@ -47,7 +49,21 @@ export default class App extends Component {
     })
   }
 
+  clearMsg = () => {
+      this.setState({
+        err: '',
+        success: ''
+      })
+  }
+
   loadPage = (url) => {
+    this.clearMsg();
+    if(!url && !url.trim()) {
+      this.setState({
+        err: "Url can't be empty"
+      })
+      return;
+    }
     this.updateCalculating(true);
     this.socket.emit('start_page_load', {url});
   }
@@ -65,7 +81,8 @@ export default class App extends Component {
   }
 
   render () {
-    const {url, urlsList, calculating} = this.state;
+    const {url, urlsList, calculating, err, success} = this.state;
+    console.log(err, success);
     return (
       <div>
         <Col>
