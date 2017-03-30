@@ -22,6 +22,7 @@ app.use(function(req, res, next) {
 
 app.get('/get_urls', (req, res) => {
   r.table('urls')
+    .orderBy({index: r.desc('checked')})
     .run()
     .then(urls => res.json({urls}))
     .catch(err => res.status(400).send(err));
@@ -56,7 +57,8 @@ const loadPage = (url) => {
       return res({
         'statusCode': response && response.statusCode,
         'load_time': time,
-        'address': url
+        'address': url,
+        'checked': Date.now()
       })
 
     })
