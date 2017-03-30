@@ -16,9 +16,10 @@ export default class App extends Component {
       url: '',
       urlsList: [],
       err: '',
-      FetchedUrl: {},
+      fetchedUrl: {},
       calculating: false,
-      total_count: 0
+      total_count: 0,
+      fetching: false
     }
 
   }
@@ -27,7 +28,14 @@ export default class App extends Component {
     this.getUrls();
   }
 
+  updateFetching = (fetching) => {
+    this.setState({
+      fetching
+    })
+  }
+
   getUrls = () => {
+    this.updateFetching(true);
     getUrls()
       .then(res => {
         let {total_count, urls} = res.data;
@@ -35,6 +43,7 @@ export default class App extends Component {
           total_count
         })
         this.updateList(urls)
+        this.updateFetching(false);
       })
   }
 
@@ -74,7 +83,7 @@ export default class App extends Component {
   clearMsg = () => {
       this.setState({
         err: '',
-        FetchedUrl: {}
+        fetchedUrl: {}
       })
   }
 
@@ -96,11 +105,11 @@ export default class App extends Component {
     })
   }
 
-  endLoadPage = (FetchedUrl) => {
+  endLoadPage = (fetchedUrl) => {
     this.updateCalculating(false);
     this.clearUrl();
     this.setState({
-      FetchedUrl
+      fetchedUrl
     })
   }
 
@@ -117,7 +126,7 @@ export default class App extends Component {
   }
 
   render () {
-    const {url, urlsList, calculating, err, FetchedUrl, total_count} = this.state;
+    const {url, urlsList, calculating, err, fetchedUrl, total_count} = this.state;
     return (
       <div style={style.container}>
         <Col>
@@ -134,8 +143,8 @@ export default class App extends Component {
                 </InputGroup.Section>
               </InputGroup>
               {err ? <Alert type="danger"><strong>Error:</strong> {err}</Alert> : null}
-              {FetchedUrl.address ? <Alert type="success"><span>
-                Load time for <strong>{FetchedUrl.address}</strong> is <strong>{FetchedUrl.load_time / 1000} seconds </strong>
+              {fetchedUrl.address ? <Alert type="success"><span>
+                Load time for <strong>{fetchedUrl.address}</strong> is <strong>{fetchedUrl.load_time / 1000} seconds </strong>
               </span> </Alert> : null}
               {urlsList && urlsList.length > 0 ? <UrlList urls={urlsList} /> : null}
               <Card>
