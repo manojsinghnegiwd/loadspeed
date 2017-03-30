@@ -4,9 +4,10 @@
   "description": "Test your website speed",
   "main": "index.js",
   "scripts": {
-    "server-dev": "./node_modules/.bin/nodemon",
+    "server-dev": "NODE_ENV=development ./node_modules/.bin/nodemon",
     "client-dev": "./node_modules/.bin/webpack-dev-server --port 3000 --config ./app/frontEnd/webpack.config.js",
-    "client-build": "./node_modules/.bin/webpack --config ./app/frontEnd/webpack.config.js"
+    "client-build": "./node_modules/.bin/webpack --config ./app/frontEnd/webpack.config.js",
+    "server-prod": "NODE_ENV=production pm2 start index.js"
   },
   "repository": {
     "type": "git",

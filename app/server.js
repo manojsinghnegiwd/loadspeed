@@ -4,6 +4,7 @@ import fs from 'fs';
 import request from 'request';
 import rethinkdbdash from 'rethinkdbdash';
 import express from 'express';
+import {Server_port} from './config';
 
 const r = rethinkdbdash({
   db: 'load_speed'
@@ -106,5 +107,5 @@ io.on('connection', (socket) => {
   socket.on('start_page_load', (data) => sendLoadTime(data.url, socket.id));
 })
 
-server.listen(3002);
+server.listen(Server_port);
 io.listen(7000);
