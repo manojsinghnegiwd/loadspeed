@@ -4,13 +4,17 @@ module.exports = {
   ],
   module: {
     loaders: [{
-      test: /\.jsx?$/,
-      exclude: /node_modules/,
-      loader: 'babel'
-    }]
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        loader: 'babel'
+      },{
+        test: /\.less$/,
+        loaders: ["style", "css", "less"]
+      }
+    ]
   },
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js', '.jsx', '.less']
   },
   output: {
     path: __dirname + '/static',
