@@ -127,7 +127,7 @@ export default class App extends Component {
               {total_count ? <h2>{total_count} tested so far... </h2>: null}
               <InputGroup>
                 <InputGroup.Section grow>
-                  <FormInput autoFocus onChange={this.updateUrl} value={url} type="text" placeholder="Test your webpage speed" />
+                  <FormInput disabled={calculating} autoFocus onChange={this.updateUrl} value={url} type="text" placeholder="Test your webpage speed" />
                 </InputGroup.Section>
                 <InputGroup.Section>
                   <Button type="primary" onClick={() => this.loadPage(url)}>{ calculating ? <Spinner type="inverted" /> : 'Load'}</Button>
