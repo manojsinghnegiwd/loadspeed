@@ -26,7 +26,7 @@ export default class UrlList extends Component {
                 urls.map((url, index) => {
                   return (
                     <tr key={index}>
-                			<td><a href={url.address}>{url.address}</a></td>
+                			<td><a style={url.new ? style.new_link : {}} href={url.address}>{url.address}</a></td>
                 			<td>{url.load_time/1000}s</td>
                 		</tr>
                   )
@@ -43,5 +43,8 @@ export default class UrlList extends Component {
 const style = {
   heading: {
     marginTop: 0
+  },
+  new_link: {
+    color: 'green'
   }
 }
