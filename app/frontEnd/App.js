@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import client from 'socket.io-client';
 import {getUrls} from './utils';
-import {Row, Col, FormInput, InputGroup, Button, Spinner} from 'elemental';
+import {Row, Col, FormInput, InputGroup, Button, Spinner, Alert} from 'elemental';
 import {UrlList} from './components';
 
 export default class App extends Component {
@@ -97,6 +97,9 @@ export default class App extends Component {
                   <Button type="primary" onClick={() => this.loadPage(url)}>{ calculating ? <Spinner type="inverted" /> : 'Load'}</Button>
                 </InputGroup.Section>
               </InputGroup>
+
+              {err ? <Alert type="danger"><strong>Error:</strong> : {err}</Alert> : null}
+
               <hr />
               <UrlList urls={urlsList} />
             </Col>
