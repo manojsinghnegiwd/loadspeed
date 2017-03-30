@@ -10,7 +10,7 @@ export default class App extends Component {
     this.socket = client('http://localhost:7000');
     this.socket.on('connect', () => console.log('connected'));
     this.socket.on('end_page_load', (data) => this.endLoadPage(data));
-    this.socket.on('new_website_tested', (data) => this.updateList(data));
+    this.socket.on('new_website_tested', (data) => this.updateList(data, true));
 
     this.state = {
       url: '',
@@ -31,11 +31,15 @@ export default class App extends Component {
       .then(res => this.updateList(res.data.urls))
   }
 
-  updateList = (data) => {
+  updateList = (data, new_link) => {
     let {urlsList} = this.state;
 
     if(!(data instanceof Array)) {
       data = [data];
+    }
+
+    if(new_link) {
+      data = data.map((url) => ({...url, new: true}));
     }
 
     urlsList.splice(0, 0, ...data);
