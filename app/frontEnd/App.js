@@ -90,7 +90,7 @@ export default class App extends Component {
   render () {
     const {url, urlsList, calculating, err, FetchedUrl} = this.state;
     return (
-      <div>
+      <div style={style.container}>
         <Col>
           <Row>
             <Col sm="1/3"></Col>
@@ -116,4 +116,10 @@ export default class App extends Component {
     )
   }
 
+}
+
+let style = {
+  container: {
+    padding: 50
+  }
 }
