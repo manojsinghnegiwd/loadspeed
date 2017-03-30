@@ -10,7 +10,15 @@ const r = rethinkdbdash({
 });
 
 const app = express();
-const io = socketIo(http.createServer(app));
+const server = http.createServer(app);
+const io = socketIo(server);
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  // res.header("Access-Control-Allow-Credentials", "true")
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 app.get('/get_urls', (req, res) => {
   r.table('urls')
@@ -70,7 +78,9 @@ const sendLoadTime = (url, socketId) => {
 }
 
 io.on('connection', (socket) => {
+  console.log('connection');
   socket.on('start_page_load', (data) => sendLoadTime(data.url, socket.id));
 })
 
-app.listen(7000);
+server.listen(3002);
+io.listen(7000);
