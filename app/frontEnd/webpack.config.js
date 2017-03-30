@@ -1,6 +1,6 @@
 module.exports = {
   entry: [
-    './index.jsx'
+    __dirname + '/index.jsx'
   ],
   module: {
     loaders: [{
@@ -22,7 +22,7 @@ module.exports = {
     filename: 'bundle.js'
   },
   devServer: {
-    contentBase: './dist',
+    contentBase: __dirname + '/dist',
     historyApiFallback: true
   }
 }
