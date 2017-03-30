@@ -3,20 +3,16 @@ import socketIo from 'socket.io';
 import fs from 'fs';
 import request from 'request';
 import rethinkdbdash from 'rethinkdbdash';
+import express from 'express';
 
 const r = rethinkdbdash({
   db: 'load_speed'
 });
 
-// handle routes
-const handler = (req, res) => {
-  return res.end(JSON.stringify({
-    message: 'hello world'
-  }));
-}
+const app = express();
+const io = socketIo(http.createServer(app));
 
-const app = http.createServer(handler);
-const io = socketIo(app);
+app.get('/', (req, res) => res.json({'message': 'hello world'}));
 
 r.table('urls').changes().run({
     cursor: 'true'
