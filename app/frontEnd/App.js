@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import client from 'socket.io-client';
+import {getUrls} from './utils';
 
 export default class App extends Component {
   constructor(props) {
