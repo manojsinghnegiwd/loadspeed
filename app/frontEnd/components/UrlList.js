@@ -26,7 +26,7 @@ export default class UrlList extends Component {
                 urls.map((url, index) => {
                   return (
                     <tr key={index}>
-                			<td>{url.address}</td>
+                			<td><a href={url.address}>{url.address}</a></td>
                 			<td>{url.load_time/1000}s</td>
                 		</tr>
                   )
