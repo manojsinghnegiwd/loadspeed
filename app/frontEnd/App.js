@@ -124,7 +124,7 @@ export default class App extends Component {
           <Row>
             <Col sm="1/4"></Col>
             <Col sm="1/2">
-              {total_count ? <h2>{total_count} tested so far... </h2>: null}
+              {total_count ? <h2 className="poppins">{total_count} tested so far... </h2>: null}
               <InputGroup>
                 <InputGroup.Section grow>
                   <FormInput disabled={calculating} autoFocus onChange={this.updateUrl} value={url} type="text" placeholder="Test your webpage speed" />
