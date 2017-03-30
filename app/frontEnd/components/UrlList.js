@@ -8,7 +8,7 @@ export default class UrlList extends Component {
       <div>
         <Card>
           <div className="lead" style={style.heading}>
-            Recently Tested
+            Recently Tested (Top 10)
           </div>
           <Table>
             <colgroup>
