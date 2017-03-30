@@ -87,7 +87,6 @@ export default class App extends Component {
       return;
     }
     this.updateCalculating(true);
-    this.clearUrl();
     this.socket.emit('start_page_load', {url});
   }
 
@@ -99,6 +98,7 @@ export default class App extends Component {
 
   endLoadPage = (FetchedUrl) => {
     this.updateCalculating(false);
+    this.clearUrl();
     this.setState({
       FetchedUrl
     })
