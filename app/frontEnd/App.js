@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import client from 'socket.io-client';
 import {getUrls} from './utils';
-import {Row, Col, FormInput, InputGroup, Button, Spinner, Alert} from 'elemental';
+import {Row, Col, FormInput, InputGroup, Button, Spinner, Alert, Card} from 'elemental';
 import {UrlList} from './components';
 
 export default class App extends Component {
@@ -138,6 +138,13 @@ export default class App extends Component {
                 Load time for <strong>{FetchedUrl.address}</strong> is <strong>{FetchedUrl.load_time / 1000} seconds </strong>
               </span> </Alert> : null}
               {urlsList && urlsList.length > 0 ? <UrlList urls={urlsList} /> : null}
+              <Card>
+                <div style={{textAlign: 'center'}}>
+                  Made by <strong><a href="http://www.manojsinghnegi.com/">Manoj Singh Negi</a></strong> with React, Socket.io, Rethinkdb & Node.JS
+                  <br />
+                  <br />
+                </div>
+              </Card>
             </Col>
             <Col sm="1/4"></Col>
           </Row>
