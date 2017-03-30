@@ -103,13 +103,10 @@ export default class App extends Component {
                   <Button type="primary" onClick={() => this.loadPage(url)}>{ calculating ? <Spinner type="inverted" /> : 'Load'}</Button>
                 </InputGroup.Section>
               </InputGroup>
-
               {err ? <Alert type="danger"><strong>Error:</strong> {err}</Alert> : null}
               {FetchedUrl.address ? <Alert type="success"><span>
                 Load time for <strong>{FetchedUrl.address}</strong> is <strong>{FetchedUrl.load_time / 1000} seconds </strong>
               </span> </Alert> : null}
-
-              <hr />
               {urlsList && urlsList.length > 0 ? <UrlList urls={urlsList} /> : null}
             </Col>
             <Col sm="1/3"></Col>
