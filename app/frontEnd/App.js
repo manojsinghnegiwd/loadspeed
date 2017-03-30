@@ -9,14 +9,14 @@ export default class App extends Component {
     super(props);
     this.socket = client('http://localhost:7000');
     this.socket.on('connect', () => console.log('connected'));
-    this.socket.on('end_page_load', (data) => this.updateCalculating(false));
+    this.socket.on('end_page_load', (data) => this.endLoadPage(data));
     this.socket.on('new_website_tested', (data) => this.updateList(data));
 
     this.state = {
       url: '',
       urlsList: [],
       err: '',
-      sucess: '',
+      FetchedUrl: {},
       calculating: false
     }
 
@@ -52,7 +52,7 @@ export default class App extends Component {
   clearMsg = () => {
       this.setState({
         err: '',
-        success: ''
+        FetchedUrl: {}
       })
   }
 
@@ -68,6 +68,13 @@ export default class App extends Component {
     this.socket.emit('start_page_load', {url});
   }
 
+  endLoadPage = (FetchedUrl) => {
+    this.updateCalculating(false);
+    this.setState({
+      FetchedUrl
+    })
+  }
+
   updateUrl = ({target}) => {
     this.setState({
       url: target.value
@@ -81,8 +88,7 @@ export default class App extends Component {
   }
 
   render () {
-    const {url, urlsList, calculating, err, success} = this.state;
-    console.log(err, success);
+    const {url, urlsList, calculating, err, FetchedUrl} = this.state;
     return (
       <div>
         <Col>
@@ -98,7 +104,10 @@ export default class App extends Component {
                 </InputGroup.Section>
               </InputGroup>
 
-              {err ? <Alert type="danger"><strong>Error:</strong> : {err}</Alert> : null}
+              {err ? <Alert type="danger"><strong>Error:</strong> {err}</Alert> : null}
+              {FetchedUrl.address ? <Alert type="success"><span>
+                Load time for <strong>{FetchedUrl.address}</strong> is <strong>{FetchedUrl.load_time / 1000} seconds </strong>
+              </span> </Alert> : null}
 
               <hr />
               <UrlList urls={urlsList} />
