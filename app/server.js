@@ -12,7 +12,12 @@ const r = rethinkdbdash({
 const app = express();
 const io = socketIo(http.createServer(app));
 
-app.get('/', (req, res) => res.json({'message': 'hello world'}));
+app.get('/get_urls', (req, res) => {
+  r.table('urls')
+    .run()
+    .then(urls => res.json({urls}))
+    .catch(err => res.status(400).send(err));
+});
 
 r.table('urls').changes().run({
     cursor: 'true'
