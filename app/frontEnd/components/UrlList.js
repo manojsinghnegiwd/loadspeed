@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-import {Table} from 'elemental';
+import {Table, Card} from 'elemental';
 
 export default class UrlList extends Component {
   render () {
     const {urls} = this.props;
     return (
       <div>
+      <Card>
         <div className="lead">
           Recently Tested
         </div>
@@ -33,6 +34,7 @@ export default class UrlList extends Component {
             }
         	</tbody>
         </Table>
+        </Card>
       </div>
     )
   }
