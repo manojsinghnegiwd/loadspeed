@@ -36,6 +36,10 @@ export default class App extends Component {
 
     urlsList.splice(0, 0, ...data);
 
+    if(urlsList.length > 9) {
+      urlsList.splice(10, urlsList.length - 10)
+    }
+
     this.setState({
       urlsList
     })

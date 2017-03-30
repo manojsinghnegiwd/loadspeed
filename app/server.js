@@ -23,6 +23,7 @@ app.use(function(req, res, next) {
 app.get('/get_urls', (req, res) => {
   r.table('urls')
     .orderBy({index: r.desc('checked')})
+    .limit(10)
     .run()
     .then(urls => res.json({urls}))
     .catch(err => res.status(400).send(err));
