@@ -29,7 +29,13 @@ export default class App extends Component {
 
   getUrls = () => {
     getUrls()
-      .then(res => this.updateList(res.data.urls))
+      .then(res => {
+        let {total_count, urls} = res.data;
+        this.setState({
+          total_count
+        })
+        this.updateList(urls)
+      })
   }
 
   newUrlAdded = (data) => {
@@ -111,7 +117,7 @@ export default class App extends Component {
           <Row>
             <Col sm="1/4"></Col>
             <Col sm="1/2">
-              <h2>{total_count} tested so far... </h2>
+              {total_count ? <h2>{total_count} tested so far... </h2>: null}
               <InputGroup>
                 <InputGroup.Section grow>
                   <FormInput autoFocus onChange={this.updateUrl} value={url} type="text" placeholder="Test your webpage speed" />

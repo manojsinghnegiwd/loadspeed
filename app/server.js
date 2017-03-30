@@ -25,7 +25,13 @@ app.get('/get_urls', (req, res) => {
     .orderBy({index: r.desc('checked')})
     .limit(10)
     .run()
-    .then(urls => res.json({urls}))
+    .then(urls => {
+      r.table('urls')
+        .count()
+        .run()
+        .then(total_count => res.json({urls, total_count}))
+        .catch(err => res.status(400).send(err));
+    })
     .catch(err => res.status(400).send(err));
 });
 
