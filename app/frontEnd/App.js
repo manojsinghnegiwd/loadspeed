@@ -126,7 +126,7 @@ export default class App extends Component {
   }
 
   render () {
-    const {url, urlsList, calculating, err, fetchedUrl, total_count} = this.state;
+    const {url, urlsList, calculating, err, fetchedUrl, total_count, fetching} = this.state;
     return (
       <div style={style.container}>
         <Col>
@@ -146,6 +146,9 @@ export default class App extends Component {
               {fetchedUrl.address ? <Alert type="success"><span>
                 Load time for <strong>{fetchedUrl.address}</strong> is <strong>{fetchedUrl.load_time / 1000} seconds </strong>
               </span> </Alert> : null}
+              {fetching ? <div style={style.centerChildren}>
+                <Spinner size="md" type="primary" />
+              </div> : null}
               {urlsList && urlsList.length > 0 ? <UrlList urls={urlsList} /> : null}
               <Card>
                 <div style={{textAlign: 'center'}}>
@@ -170,5 +173,11 @@ export default class App extends Component {
 let style = {
   container: {
     padding: 50
+  },
+  centerChildren: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 150
   }
 }
