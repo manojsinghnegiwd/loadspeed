@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import client from 'socket.io-client';
 import {getUrls} from './utils';
+import {Row, Col} from 'elemental';
+import {UrlList} from './components';
 
 export default class App extends Component {
   constructor(props) {
@@ -66,10 +68,18 @@ export default class App extends Component {
     const {url, urlsList, calculating} = this.state;
     return (
       <div>
-        <input onChange={this.updateUrl} value={url} />
-        <button onClick={() => this.loadPage(url)}>Start Loading</button>
-        {calculating ? <p>loading</p> : null}
-        {urlsList && urlsList.map((url, index) => <li key={index}>{url.address} : {url.load_time}</li>)}
+        <Col>
+          <Row>
+            <Col sm="1/3"></Col>
+            <Col sm="1/3">
+              <input onChange={this.updateUrl} value={url} />
+              <button onClick={() => this.loadPage(url)}>Start Loading</button>
+              {calculating ? <p>loading</p> : null}
+              <UrlList urls={urlsList} />
+            </Col>
+            <Col sm="1/3"></Col>
+          </Row>
+        </Col>
       </div>
     )
   }
