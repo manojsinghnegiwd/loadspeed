@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import client from 'socket.io-client';
 import {getUrls} from './utils';
-import {Row, Col} from 'elemental';
+import {Row, Col, FormInput, InputGroup, Button, Spinner} from 'elemental';
 import {UrlList} from './components';
 
 export default class App extends Component {
@@ -72,9 +72,15 @@ export default class App extends Component {
           <Row>
             <Col sm="1/3"></Col>
             <Col sm="1/3">
-              <input onChange={this.updateUrl} value={url} />
-              <button onClick={() => this.loadPage(url)}>Start Loading</button>
-              {calculating ? <p>loading</p> : null}
+              <InputGroup>
+                <InputGroup.Section grow>
+                  <FormInput autoFocus onChange={this.updateUrl} value={url} type="text" placeholder="Test your webpage speed" />
+                </InputGroup.Section>
+                <InputGroup.Section>
+                  <Button type="primary" onClick={() => this.loadPage(url)}>{ calculating ? <Spinner type="inverted" /> : 'Load'}</Button>
+                </InputGroup.Section>
+              </InputGroup>
+              <hr />
               <UrlList urls={urlsList} />
             </Col>
             <Col sm="1/3"></Col>
