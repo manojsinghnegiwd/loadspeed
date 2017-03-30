@@ -9,15 +9,16 @@ export default class App extends Component {
     super(props);
     this.socket = client('http://localhost:7000');
     this.socket.on('connect', () => console.log('connected'));
-    this.socket.on('end_page_load', (data) => this.endLoadPage(data));
-    this.socket.on('new_website_tested', (data) => this.updateList(data, true));
+    this.socket.on('end_page_load', this.endLoadPage);
+    this.socket.on('new_website_tested', this.newUrlAdded);
 
     this.state = {
       url: '',
       urlsList: [],
       err: '',
       FetchedUrl: {},
-      calculating: false
+      calculating: false,
+      total_count: 0
     }
 
   }
@@ -29,6 +30,17 @@ export default class App extends Component {
   getUrls = () => {
     getUrls()
       .then(res => this.updateList(res.data.urls))
+  }
+
+  newUrlAdded = (data) => {
+
+    const {new_url, total_count} = data;
+
+    this.setState({
+      total_count
+    })
+
+    this.updateList(new_url, true);
   }
 
   updateList = (data, new_link) => {
@@ -92,13 +104,14 @@ export default class App extends Component {
   }
 
   render () {
-    const {url, urlsList, calculating, err, FetchedUrl} = this.state;
+    const {url, urlsList, calculating, err, FetchedUrl, total_count} = this.state;
     return (
       <div style={style.container}>
         <Col>
           <Row>
             <Col sm="1/4"></Col>
             <Col sm="1/2">
+              <h2>{total_count} tested so far... </h2>
               <InputGroup>
                 <InputGroup.Section grow>
                   <FormInput autoFocus onChange={this.updateUrl} value={url} type="text" placeholder="Test your webpage speed" />
