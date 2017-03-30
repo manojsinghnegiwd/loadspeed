@@ -28,9 +28,17 @@ export default class App extends Component {
   }
 
   updateList = (data) => {
-    this.setState((prevState) => ({
-      urlsList: prevState.urlsList.concat(data)
-    }))
+    let {urlsList} = this.state;
+
+    if(!(data instanceof Array)) {
+      data = [data];
+    }
+
+    urlsList.splice(0, 0, ...data);
+
+    this.setState({
+      urlsList
+    })
   }
 
   loadPage = (url) => {
