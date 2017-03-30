@@ -6,7 +6,9 @@ export default class UrlList extends Component {
     console.log(urls);
     return (
       <div>
-        <h3>Recently tested webpages</h3>
+        <div className="lead">
+          Recently Tested
+        </div>
       </div>
     )
   }
