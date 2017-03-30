@@ -93,8 +93,8 @@ export default class App extends Component {
       <div style={style.container}>
         <Col>
           <Row>
-            <Col sm="1/3"></Col>
-            <Col sm="1/3">
+            <Col sm="1/4"></Col>
+            <Col sm="1/2">
               <InputGroup>
                 <InputGroup.Section grow>
                   <FormInput autoFocus onChange={this.updateUrl} value={url} type="text" placeholder="Test your webpage speed" />
@@ -109,7 +109,7 @@ export default class App extends Component {
               </span> </Alert> : null}
               {urlsList && urlsList.length > 0 ? <UrlList urls={urlsList} /> : null}
             </Col>
-            <Col sm="1/3"></Col>
+            <Col sm="1/4"></Col>
           </Row>
         </Col>
       </div>
