@@ -143,6 +143,9 @@ export default class App extends Component {
                   Made by <strong><a href="http://www.manojsinghnegi.com/">Manoj Singh Negi</a></strong> with React, Socket.io, Rethinkdb & Node.JS
                   <br />
                   <br />
+                  <a target="_blank" href="https://github.com/manojsinghnegiwd/loadspeed">
+                    <strong>Fork this project on github</strong>
+                  </a>
                 </div>
               </Card>
             </Col>
