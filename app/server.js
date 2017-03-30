@@ -20,6 +20,12 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.use('/static', express.static(__dirname + '/frontEnd/static/'));
+
+app.get('/', (req, res) => {
+  return res.sendFile(__dirname + '/frontEnd/dist/index.html');
+})
+
 app.get('/get_urls', (req, res) => {
   r.table('urls')
     .orderBy({index: r.desc('checked')})

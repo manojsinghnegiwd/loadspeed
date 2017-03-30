@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "server-dev": "./node_modules/.bin/nodemon",
-    "client-dev": "./node_modules/.bin/webpack-dev-server --port 3000 --config ./app/frontEnd/webpack.config.js"
+    "client-dev": "./node_modules/.bin/webpack-dev-server --port 3000 --config ./app/frontEnd/webpack.config.js",
+    "client-build": "./node_modules/.bin/webpack --config ./app/frontEnd/webpack.config.js"
   },
   "repository": {
     "type": "git",
