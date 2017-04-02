@@ -1,1 +1,1 @@
-export const Server_port = process.env.NODE_ENV == 'production' ? 80 : 3002;
+export const Server_port = 3002;

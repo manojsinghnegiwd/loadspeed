@@ -21665,7 +21665,7 @@
 	      });
 	    };
 
-	    _this.socket = (0, _socket2.default)('http://localhost:7000');
+	    _this.socket = (0, _socket2.default)(_utils.host_url + ':' + _utils.socket_port);
 	    _this.socket.on('connect', function () {
 	      return console.log('connected');
 	    });
@@ -30374,12 +30374,12 @@
 /* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.getUrls = exports.host_url = undefined;
+	exports.getUrls = exports.socket_port = exports.api_port = exports.host_url = undefined;
 
 	var _axios = __webpack_require__(234);
 
@@ -30387,11 +30387,14 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var host_url = exports.host_url = 'http://localhost:3002';
+	var host_url = exports.host_url = process.env.NODE_ENV == 'production' ? 'http://www.manojsinghnegi.com' : 'http://localhost';
+	var api_port = exports.api_port = 3002;
+	var socket_port = exports.socket_port = 7000;
 
 	var getUrls = exports.getUrls = function getUrls() {
-	  return _axios2.default.get(host_url + '/get_urls');
+	  return _axios2.default.get(host_url + ':' + api_port + '/get_urls');
 	};
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
 /* 234 */
