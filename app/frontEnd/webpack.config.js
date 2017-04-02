@@ -32,6 +32,12 @@ module.exports = {
   },
   plugins: [
     (process.env.NODE_ENV == 'production' ?
+      new webpack.DefinePlugin({
+        'process.env': {
+          NODE_ENV: JSON.stringify('production')
+        }
+      }) : function () {}),
+    (process.env.NODE_ENV == 'production' ?
       new webpack.optimize.UglifyJsPlugin({
         compress:{
           warnings: true
