@@ -21,6 +21,13 @@ module.exports = {
     publicPath: '/static/',
     filename: 'bundle.js'
   },
+  externals: {
+    'Config': JSON.stringify(process.env.NODE_ENV == 'production' ? {
+      host_url: "https://manojsinghnegi.com",
+    } : {
+      host_url: "http://localhost",
+    })
+  },
   devServer: {
     contentBase: __dirname + '/dist',
     historyApiFallback: true
