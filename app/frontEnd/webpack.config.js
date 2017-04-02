@@ -1,3 +1,5 @@
+var webpack = require('webpack');
+
 module.exports = {
   entry: [
     __dirname + '/index.jsx'
@@ -28,6 +30,15 @@ module.exports = {
       host_url: "http://localhost",
     })
   },
+  plugins: [
+    (process.env.NODE_ENV == 'production' ?
+      new webpack.optimize.UglifyJsPlugin({
+        compress:{
+          warnings: true
+        }
+      })
+    : function () {})
+  ],
   devServer: {
     contentBase: __dirname + '/dist',
     historyApiFallback: true

@@ -49,6 +49,8 @@ export default class App extends Component {
 
   newUrlAdded = (data) => {
 
+    console.log(data);
+
     const {new_url, total_count} = data;
 
     this.setState({
