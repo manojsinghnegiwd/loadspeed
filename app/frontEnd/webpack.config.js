@@ -23,7 +23,7 @@ module.exports = {
   },
   externals: {
     'Config': JSON.stringify(process.env.NODE_ENV == 'production' ? {
-      host_url: "https://manojsinghnegi.com",
+      host_url: "http://manojsinghnegi.com",
     } : {
       host_url: "http://localhost",
     })
