@@ -1,10 +1,10 @@
 import http from 'http';
 import socketIo from 'socket.io';
 import fs from 'fs';
-import request from 'request';
 import rethinkdbdash from 'rethinkdbdash';
 import express from 'express';
 import {Server_port} from './config';
+import phantom from 'phantom';
 
 const r = rethinkdbdash({
   db: 'load_speed'
@@ -69,22 +69,34 @@ r.table('urls').changes().run({
 
 const loadPage = (url) => {
   return new Promise((res, rej) => {
-    let time = Date.now();
-    request(url, (err, response) => {
-
-      time = Date.now() - time;
-
-      if(err)
-        return rej(err);
-
-      return res({
-        'statusCode': response && response.statusCode,
-        'load_time': time,
-        'address': url,
-        'checked': Date.now()
+    var phInstance = null;
+    phantom.create()
+      .then(instance => {
+          phInstance = instance;
+          return instance.createPage();
       })
-
-    })
+      .then(page => {
+        let t = Date.now();
+        page.open(url)
+          .then((status) => {
+            if (status !== 'success') {
+              return rej(err);
+            } else {
+              t = Date.now() - t;
+              phInstance.exit();
+              return res({
+                'statusCode': 200,
+                'load_time': t,
+                'address': url,
+                'checked': Date.now()
+              })
+            }
+          })
+      })
+      .catch(error => {
+          return rej(error);
+          phInstance.exit();
+      });
   })
 }
 
